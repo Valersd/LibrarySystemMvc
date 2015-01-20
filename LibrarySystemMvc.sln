@@ -3,7 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibrarySystemMvc.Web", "LibrarySystemMvc.Web\LibrarySystemMvc.Web.csproj", "{07E10C47-4835-44FE-A465-AFE847C85333}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibrarySystem.Models", "LibrarySystem.Models\LibrarySystem.Models.csproj", "{99D8E02E-40D8-429E-AB53-5CF53AAD171A}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{07E10C47-4835-44FE-A465-AFE847C85333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07E10C47-4835-44FE-A465-AFE847C85333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07E10C47-4835-44FE-A465-AFE847C85333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07E10C47-4835-44FE-A465-AFE847C85333}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99D8E02E-40D8-429E-AB53-5CF53AAD171A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99D8E02E-40D8-429E-AB53-5CF53AAD171A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99D8E02E-40D8-429E-AB53-5CF53AAD171A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99D8E02E-40D8-429E-AB53-5CF53AAD171A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
