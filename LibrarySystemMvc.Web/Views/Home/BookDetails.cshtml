@@ -1,0 +1,27 @@
+﻿@model BookDetailsViewModel
+
+@{
+    ViewBag.Title = "Book Details";
+}
+
+<h2>Book Details</h2>
+
+<div>
+    <h3 class="well well-sm">@Model.Title</h3>
+    <h4><i>by @Model.Author</i></h4>
+    @if (!string.IsNullOrEmpty(Model.ISBN))
+    {
+        <p><i>ISBN @Model.ISBN</i></p>
+    }
+    @if (!string.IsNullOrEmpty(Model.Url))
+    {
+        <p><i>Web site: @Html.DisplayFor(m=>m.Url)</i></p>
+    }
+    @if (!string.IsNullOrEmpty(Model.Description))
+    {
+        @Html.DisplayFor(m=>m.Description)
+    }
+</div>
+<p>
+    <a href="javascript:history.go(-1)">Back to books</a>
+</p>

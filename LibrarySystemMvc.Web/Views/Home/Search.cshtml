@@ -1,0 +1,16 @@
+﻿@model IEnumerable<LibrarySystemMvc.Web.ViewModels.BookSearchViewModel>
+
+@{
+    ViewBag.Title = "Search results";
+}
+
+<h2>Search Results for Query "@Request["search"]"</h2>
+<ul>
+    @foreach (var book in Model)
+    {
+        <li>@Html.ActionLink(book.Title, "BookDetails", "Home", new { id = book.Id, area = "" }, null)<i> by @book.Author</i> (Category @book.Category)</li>
+    }
+</ul>
+<p>
+    <a href="javascript:history.go(-1)">Back to books</a>
+</p>

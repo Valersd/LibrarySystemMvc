@@ -1,0 +1,16 @@
+﻿@model CategoryBooksViewModel
+
+<h3>@Model.CategoryName</h3>
+@if (Model.Books.Any())
+{
+    <ul>
+        @foreach (var book in Model.Books)
+        {
+            <li>@Html.ActionLink(book.Title, "BookDetails", "Home", new { id = book.Id, area = "" }, null)<i> by @book.Author</i></li>
+        }
+    </ul>
+}
+else
+{
+    <i>No books in this category</i>
+}
