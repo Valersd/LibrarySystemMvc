@@ -40,3 +40,25 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.search-panel{
+    margin-top:-50px;
+    padding-bottom:30px;
+}
+
+#searchInput{
+    width:30%;
+}
+
+.wordWrap {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.pagination-container{
+    text-align:center;
+}
+
+.pagination{
+    margin:0 auto;
+}
