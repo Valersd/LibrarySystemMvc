@@ -19,6 +19,7 @@ namespace LibrarySystemMvc.Web.Areas.Admin.Controllers
         private LibraryDbContext db = new LibraryDbContext();
 
         // GET: /Admin/Categories/
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(int? page)
         {
             return View(db.Categories.ToList().ToPagedList(page ?? 1, 5));
@@ -48,6 +49,8 @@ namespace LibrarySystemMvc.Web.Areas.Admin.Controllers
                 try
                 {
                     db.SaveChanges();
+                    TempData["Message"] = string.Format("Category \"{0}\" succesfully added", category.Name);
+                    TempData["bootstrapClass"] = "alert alert-success";
                     return RedirectToAction("Index");
                 }
                 catch (Exception)
@@ -72,7 +75,13 @@ namespace LibrarySystemMvc.Web.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(category);
+
+            CategoryEditModel categoryModel = new CategoryEditModel
+            {
+                Name = category.Name
+            };
+
+            return View(categoryModel);
         }
 
         // POST: /Admin/Categories/Edit/5
@@ -80,14 +89,20 @@ namespace LibrarySystemMvc.Web.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Name")] Category category)
+        public ActionResult Edit(CategoryEditModel category)
         {
+            Category newCategory = new Category
+            {
+                Name = category.Name
+            };
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
+                db.Entry(newCategory).State = EntityState.Modified;
                 try
                 {
                     db.SaveChanges();
+                    TempData["Message"] = string.Format("Category \"{0}\" succesfully updated", newCategory.Name);
+                    TempData["bootstrapClass"] = "alert alert-success";
                     return RedirectToAction("Index");
                 }
                 catch (Exception)
@@ -100,29 +115,31 @@ namespace LibrarySystemMvc.Web.Areas.Admin.Controllers
         }
 
         // GET: /Admin/Categories/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
-        }
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Category category = db.Categories.Find(id);
+        //    if (category == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(category);
+        //}
 
         // POST: /Admin/Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, int? page)
         {
             Category category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            TempData["Message"] = string.Format("Category \"{0}\" succesfully deleted", category.Name);
+            TempData["bootstrapClass"] = "alert alert-success";
+            return RedirectToAction("Index", new { page = page });
         }
 
         protected override void Dispose(bool disposing)

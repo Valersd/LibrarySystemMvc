@@ -11,9 +11,12 @@
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
-select,
-textarea {
+select{
     max-width: 280px;
+}
+
+textarea{
+    max-width:500px;
 }
 
 /* styles for validation helpers */
@@ -62,3 +65,17 @@ input[type="checkbox"].input-validation-error {
 .pagination{
     margin:0 auto;
 }
+
+.btn-link{
+    margin:0;
+    padding:0;
+}
+
+.modal {
+    overflow-y: auto;
+}
+
+body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {
+    margin-right: 0;
+}
+

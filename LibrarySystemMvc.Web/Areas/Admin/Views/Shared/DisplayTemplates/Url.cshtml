@@ -1,0 +1,14 @@
+﻿@if (Model != null)
+{
+    string result = Model.Length > 20 ? Model.Substring(0, 20) + (char)8230 : Model;
+    if (Model.IndexOf("http://") >= 0)
+    {
+        <a href="@Model" target="_blank" title="@Model">@result</a>
+    }
+    else
+    {
+        string url = "http://" + Model;
+        <a href="@url" target="_blank" title="@Model">@result</a>
+    }
+}
+

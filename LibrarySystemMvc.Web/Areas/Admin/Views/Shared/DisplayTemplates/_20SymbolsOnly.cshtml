@@ -1,0 +1,4 @@
+﻿@{
+    string text = Model  == null ? "" : (Model.Length > 20 ? Model.Substring(0, 20) + (char)8230 : Model);
+}
+<span title="@Model">@text</span>

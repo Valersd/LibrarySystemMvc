@@ -7,8 +7,9 @@ using System.Web;
 
 namespace LibrarySystemMvc.Web.Areas.Admin.Models
 {
-    public class CategoryAddModel
+    public class CategoryEditModel
     {
+        public int Id { get; set; }
 
         [Required]
         [StringLength(100)]

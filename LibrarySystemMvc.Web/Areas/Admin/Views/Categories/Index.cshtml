@@ -6,6 +6,10 @@
     ViewBag.Title = "Categories";
 }
 
+@if (TempData["Message"] != null)
+{
+    @Html.Partial("_Alert")
+}
 <h2>@ViewBag.Title</h2>
 <div class="row">
     <div class="col-sm-6">
@@ -26,8 +30,11 @@
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td class="text-center">
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) &nbsp;|
+                        @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                        <button type="button" id="deleteCategory" class="btn-link" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-category-id="@item.Id" data-category="@item.Name" data-target="#myModal">
+                            Delete
+                        </button>
                     </td>
                 </tr>
             }
@@ -39,3 +46,35 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>*@
+                <h5 class="modal-title" id="myModalLabel">Delete confirmation</h5>
+            </div>
+            <div class="modal-body">
+                <h4>
+                    Are you sure to delete category <i><b><span id="categoryName"></span></b></i> and all its books ?
+                </h4>
+            </div>
+            <div class="modal-footer">
+                @using (Html.BeginForm("Delete", "Categories", new { page = Model.PageNumber }, FormMethod.Post))
+                {
+                    <button type="button" class="btn btn-success" data-dismiss="modal">&nbsp;&nbsp;No&nbsp;&nbsp;</button>
+
+                    @Html.Hidden("id")
+                    @Html.AntiForgeryToken()
+                    <input type="submit" class="btn btn-danger" value="Delete" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/Custom/modal.js")
+    @Scripts.Render("~/Scripts/Custom/alert-hide-efect.js")
+}

@@ -1,0 +1,69 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<BookIndexModel>
+@{
+    ViewBag.Title = "Books";
+}
+
+@if (TempData["Message"] != null)
+{
+    @Html.Partial("_Alert")
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Index", "Books", new { area = "Admin" }, FormMethod.Get, null))
+{
+    <div class="form-group search-panel">
+        <label for="searchInput" class="sr-only">Search</label>
+        <input type="submit" class="btn btn-primary pull-right" value="Search" />
+        <input type="text" class="form-control pull-right" name="search" id="searchInput" placeholder="Search by book title/author...">
+    </div>
+}
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>
+            @Html.ActionLink("Title", "Index", new { sortBy = ViewBag.SortByTitle, search = Request["search"] })
+        </th>
+        <th>
+            @Html.ActionLink("Author", "Index", new { sortBy = ViewBag.SortByAuthor, search = Request["search"] })
+        </th>
+        <th>
+            @Html.ActionLink("ISBN", "Index", new { sortBy = ViewBag.SortByIsbn, search = Request["search"] })
+        </th>
+        <th>
+            @Html.ActionLink("Web site", "Index", new { sortBy = ViewBag.SortByUrl, search = Request["search"] })
+        </th>
+        <th>
+            @Html.ActionLink("Category", "Index", new { sortBy = ViewBag.SortByCategory, search = Request["search"] })
+        </th>
+        <th class="text-center">
+            Action
+        </th>
+    </tr>
+    @foreach (var book in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink(book.Title, "BookDetails", "Home", new { area = "", id = book.Id }, null)</td>
+            <td>@Html.DisplayFor(b => book.Author)</td>
+            <td>@Html.DisplayFor(b => book.ISBN)</td>
+            <td>@Html.DisplayFor(b => book.Url)</td>
+            <td>@Html.DisplayFor(b => book.CategoryName)</td>
+            <td class="text-center">
+                @Html.ActionLink("Edit", "Edit", new { id = book.Id }) &nbsp;|&nbsp;
+                @Html.ActionLink("Delete", "Delete", new { id = book.Id })
+            </td>
+        </tr>
+    }
+</table>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortBy = Request["sortBy"], search=Request["search"] }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
+
+@Html.ActionLink("Create New", "Create")
+
+@section scripts{
+
+    @Scripts.Render("~/Scripts/Custom/alert-hide-efect.js")
+}
